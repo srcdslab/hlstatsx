@@ -565,7 +565,7 @@ sub rewardTeam
 		if (($g_servers{$s_addr}->{ignore_bots} == 1) && (($player->{is_bot} == 1) || ($player->{userid} <= 0))) {
 			$desc = "(IGNORED) BOT: ";
 		} else {
-			if ($player_team eq $team) {
+			if (($player_team eq $team) && ($player->{is_dead} == 0)) {
 				if ($g_debug > 2) {
 					&printNotice("Rewarding " . $player->getInfoString() . " with \"$reward\" skill for action \"$actionid\"");
 				}
