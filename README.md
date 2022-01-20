@@ -22,3 +22,8 @@ a PHP frontend.
 ### :speech_balloon: Help
 *  https://forums.alliedmods.net/forumdisplay.php?f=156
 ---
+
+### Docker Compose
+* docker-compose up -d
+* Admin (admin:123456) -> Enable and configure your server
+* Add `logaddress ip:port` of the daemon to your server
