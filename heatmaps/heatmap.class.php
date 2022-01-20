@@ -43,7 +43,6 @@ class Heatmap {
         */
         public static function init () {
         		global $argv;
-				DB::connect();
 				self::mapinfo();
 				self::parseArguments($argv);
         }
@@ -370,9 +369,8 @@ class Heatmap {
 					$map_query.= '                      AND hef.victimRole != "infected"
 ';
 			}
-					$map_query.= '                      LIMIT ' . KILL_LIMIT . '
 
-					UNION ALL
+			$map_query.= 'UNION ALL
 
 					SELECT
 							"teamkill" AS killtype,
@@ -578,22 +576,17 @@ class Heatmap {
 
 
 class DB {
-	public static function connect () {
-		mysql_connect(DB_HOST, DB_USER, DB_PASS);
-		mysql_select_db(DB_NAME);
-		show::Event("DB", "Connected to " . DB_NAME . " as " . DB_USER . "@" . DB_HOST, 1);
-	}
-
 	public static function doQuery ($query) {
-		return mysql_query($query);
+		$con = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+		return mysqli_query($con, $query);
 	}
 
 	public static function getAssoc ($result) {
-		return  mysql_fetch_assoc($result);
+		return  mysqli_fetch_assoc($result);
 	}
 
 	public static function numRows ($result) {
-		return mysql_num_rows($result);
+		return mysqli_num_rows($result);
 	}
 }
 
