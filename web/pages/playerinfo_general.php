@@ -327,6 +327,11 @@ For support and installation notes visit http://www.hlxcommunity.com
 									hlstats_Weapons.code = hlstats_Events_Frags.weapon
 								WHERE
 									hlstats_Events_Frags.killerId=$player
+									AND
+									(
+										hlstats_Weapons.game = '$game'
+										OR hlstats_Weapons.weaponId IS NULL
+									)
 								GROUP BY
 									hlstats_Events_Frags.weapon
 								ORDER BY
