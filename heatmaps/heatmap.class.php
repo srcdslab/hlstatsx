@@ -160,7 +160,7 @@ class Heatmap {
 			$timestamp = time();
 
 			// Fix the last part of your path.
-			$path = HLXCE_WEB . "/hlstatsimg/games/" . $mapinfo[$code][$map]['code'] . "/heatmaps";
+			$path = dirname(HLXCE_WEB . "/hlstatsimg/games/" . $mapinfo[$code][$map]['code'] . "/heatmaps/" . $map);
 			show::Event("PATH", $path, 3);
 
 			// Does the source image exists? else there is no idea to spend resources on it.
@@ -171,17 +171,18 @@ class Heatmap {
 									
 			// Check that the dir exists, else try to create it.
 			if (!is_dir($path)) {
-				if (!@mkdir($path)) {
-					show::Event("PREPARE", "Couln't create outputfolder: $path", 1);
+				if (!@mkdir($path,0777,TRUE)) {
+					show::Event("PREPARE", "Couldn't create outputfolder: $path", 1);
 				}
 			}
 
 			// Check if we have cached info, then we should work from that instead.
-			if (is_dir(CACHE_DIR . "/$code")) {
-			if ($handle = opendir(CACHE_DIR. "/$code")) {
+			$cache_root = dirname(CACHE_DIR . "/$code/$map");
+			if (is_dir($cache_root)) {
+			if ($handle = opendir($cache_root)) {
 				while (false !== ($file = readdir($handle))) {
-					if ($file != "." && $file != ".." && preg_match(str_replace("\$","\\\$","/${map}_(\d+).png/i"), $file, $matches)) {
-					$cache_file = CACHE_DIR . "/$code/$file";
+					if ($file != "." && $file != ".." && preg_match(str_replace("\$","\\\$","#".basename($map)."_(\d+).png#i"), $file, $matches)) {
+					$cache_file = "$cache_root/$file";
 					$oldtimestamp = $matches[1];
 
 					// unless it's over 30 days old cache file, then we delete it and go from 0 again.
@@ -207,8 +208,8 @@ class Heatmap {
 				closedir($handle);
 				}
 			} else {
-				if (!@mkdir(CACHE_DIR . "/$code")) {
-					show::Event("CACHE", "Can't create cache_dir: " . CACHE_DIR . "/$code", 1);
+				if (!@mkdir($cache_root,0777,TRUE)) {
+					show::Event("CACHE", "Can't create cache_dir: $cache_root", 1);
 				}
 			}
 
@@ -319,13 +320,13 @@ class Heatmap {
 			if ($mapinfo[$code][$map]['thumbw'] > 0 && $mapinfo[$code][$map]['thumbh'] > 0) {
 				$thumb = imagecreatetruecolor(imagesx($img) * $mapinfo[$code][$map]['thumbw'], imagesy($img) * $mapinfo[$code][$map]['thumbh']);
 				imagecopyresampled($thumb, $img, 0, 0, 0, 0, imagesx($thumb), imagesy($thumb), imagesx($img), imagesy($img));
-				imagejpeg($thumb, $path . "/" . $map . "-" . $mode . "-thumb.jpg", 100);
+				imagejpeg($thumb, $path . "/" . basename($map) . "-" . $mode . "-thumb.jpg", 100);
 				imagedestroy($thumb);
 			}
 
 			$img = self::drawHud($img, $map,  "HLX:CE", "Total Kills", $num_kills, $firstdata);
 						
-			if (imagejpeg($img, $path . "/" . $map . "-" . $mode . ".jpg", 100)) $return = true;
+			if (imagejpeg($img, $path . "/" . basename($map) . "-" . $mode . ".jpg", 100)) $return = true;
 			if (imagepng($overlay, CACHE_DIR . "/$code/${map}_${timestamp}.png", 9)) $return = true;
 			imagedestroy($overlay);
 
