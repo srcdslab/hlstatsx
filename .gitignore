@@ -1,3 +1,6 @@
 /.idea
-/.vscode
 /.vagrant
+/.vscode
+/heatmaps/cache
+/web/hlstatsimg/games/*/heatmaps
+/web/hlstatsimg/progress
