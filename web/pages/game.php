@@ -468,6 +468,8 @@ For support and installation notes visit http://www.hlxcommunity.com
 				hlstats_Players.playerId = hlstats_Awards.d_winner_id
 			WHERE
 				hlstats_Awards.game='$game'
+			AND
+				hlstats_Awards.d_winner_id IS NOT NULL
 			ORDER BY
 				hlstats_Awards.name
 		");
