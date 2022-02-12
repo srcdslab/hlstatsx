@@ -256,7 +256,9 @@ if ($player_id > 0) {
 		FROM
 			hlstats_Players
 		WHERE
-			game='".$playerdata['game']."'");
+			game='".$playerdata['game']."'
+			AND hideranking=0
+	");
 	$pl_count = $db->fetch_array();
 	$db->free_result();
 

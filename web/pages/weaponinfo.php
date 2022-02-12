@@ -127,7 +127,7 @@ For support and installation notes visit http://www.hlxcommunity.com
 			hlstats_Players.playerId = hlstats_Events_Frags.killerId
 			AND hlstats_Events_Frags.weapon='$weapon'
 			AND hlstats_Players.game='$game'
-			AND hlstats_Players.hideranking = 0
+			AND hlstats_Players.hideranking <> 1
 		GROUP BY
 			hlstats_Events_Frags.killerId
 		ORDER BY

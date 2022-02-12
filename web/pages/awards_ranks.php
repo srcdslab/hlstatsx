@@ -56,6 +56,7 @@ For support and installation notes visit http://www.hlxcommunity.com
 		WHERE
 			kills>=minKills
 			AND kills<=maxKills
+			AND hideranking<>'1'
 			AND hlstats_Ranks.game='$game'
 		GROUP BY
 			rankName,

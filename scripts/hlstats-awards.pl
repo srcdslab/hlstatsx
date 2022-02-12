@@ -940,7 +940,7 @@ sub DoRibbons
 						hlstats_Players
 					ON
 						hlstats_Players.playerId = hlstats_Players_Awards.playerId
-						AND hlstats_Players.hideranking=0
+						AND (hlstats_Players.hideranking=0 OR hlstats_Players.hideranking=3)
 					WHERE
 						hlstats_Players_Awards.game='".&quoteSQL($game)."' AND
 						hlstats_Awards.code='".$code."' AND
