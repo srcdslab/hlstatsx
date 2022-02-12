@@ -68,7 +68,7 @@
 	if (isset($_GET['player'])) $player = (int)$_GET['player'];
 	if (!$player) exit();
 	
-	$res = $db->query("SELECT UNIX_TIMESTAMP(eventTime) AS ts, skill, skill_change FROM hlstats_Players_History WHERE playerId = '$player' ORDER BY eventTime DESC LIMIT 30");
+	$res = $db->query("SELECT UNIX_TIMESTAMP(eventTime) AS ts, skill, skill_change FROM hlstats_Players_History WHERE playerId = '$player' ORDER BY eventTime ASC LIMIT 30");
 	$skill = array();
 	$skill_change = array();
 	$date = array();
@@ -77,16 +77,16 @@
 	for ($i = 1; $i <= $rowcnt; $i++)
 	{
 		$row = $db->fetch_array($res);
-		array_unshift($skill, ($row['skill']==0)?0:($row['skill']/1000));
-		array_unshift($skill_change, $row['skill_change']);
+		$skill[] = ($row['skill']==0)?0:($row['skill']/1000);
+		$skill_change[] = $row['skill_change'];
 		if ($i == 1 || $i == round($rowcnt/2) || $i == $rowcnt)
 		{
-			array_unshift($date, date("M-j", $row['ts']));
+			$date[] = date("M-j", $row['ts']);
 			$last_time = $row['ts'];
 		}
 		else
 		{
-			array_unshift($date, '');
+			$date[] = '';
 		}
 	}
 	
