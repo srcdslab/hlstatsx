@@ -3528,7 +3528,7 @@ EOT
 			# Unrecognized event
 			# HELLRAISER
 			if ($g_debug > 1) {
-				&printEvent(999, "UNRECOGNIZED: " . $s_output);
+				&printEvent(999, "UNRECOGNIZED: " . $s_output, !$g_stdin, 1);
 			}
 		}
 		
