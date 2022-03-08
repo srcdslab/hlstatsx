@@ -1472,7 +1472,7 @@ sub doEvent_PlayerPlayerAction
 	} elsif (checkBonusRound()) {
 		$desc = "(IGNORED) BonusRound: ";
 	} elsif ($player && $victim) {
-		if (($g_servers{$s_addr}->{ignore_bots} == 1) && (($killer->{is_bot} == 1) || ($victim->{is_bot} == 1))) {
+		if (($g_servers{$s_addr}->{ignore_bots} == 1) && (($player->{is_bot} == 1) || ($victim->{is_bot} == 1))) {
 			$desc = "(IGNORED) BOT: ";
 		} else {
 			if ($g_servers{$s_addr}->{play_game} == TF() && $action eq "medic_death") {
