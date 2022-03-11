@@ -81,7 +81,7 @@ For support and installation notes visit http://www.hlxcommunity.com
 		array($gamename, 'Ribbon Details', $act_name),
 		array(
 			$gamename => $g_options['scripturl']."?game=$game",
-			'Ribbons' => $g_options['scripturl']."mode=awards&game=$game&tab=ribbons",
+			'Ribbons' => $g_options['scripturl']."?mode=awards&game=$game&tab=ribbons",
 			'Ribbon Details' => ''
 		),
 		$act_name
