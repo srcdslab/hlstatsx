@@ -100,15 +100,13 @@ For support and installation notes visit http://www.hlxcommunity.com
 		$playername
 	);
 	flush();
-	$cnttext = 'Earned';
+	$cnttext = 'Awards Earned';
 	$lnktext = '&link='.urlencode("mode=playerawards&player=".$player."&amp;awardId=%k");
 	if (isset($_GET['awardId']))
 	{
-		$awardId = valid_request($_GET['awardId'], true) or error("No clan ID specified."); 
+		$awardId = valid_request($_GET['awardId'], true) or error("No award ID specified.");
+		$cnttext = 'Kills on Day';
 	}
-
-	$cnttext = 'Kills on Day';
-	$lnktext = '';
 
 	$table = new Table
 	(
@@ -123,7 +121,7 @@ For support and installation notes visit http://www.hlxcommunity.com
 			new TableColumn(
 				'name',
 				'Name',
-				'width=23'
+				'width=23'.$lnktext
 			),
 			new TableColumn(
 				'verb',
@@ -152,7 +150,7 @@ For support and installation notes visit http://www.hlxcommunity.com
 		("
 			SELECT
 				hlstats_Players_Awards.awardTime,
-                hlstats_Awards.Name,
+                hlstats_Awards.name,
 				hlstats_Awards.verb,
 				hlstats_Players_Awards.count,
 				hlstats_Awards.awardId
