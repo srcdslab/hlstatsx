@@ -862,6 +862,7 @@ class PropertyPage
 	function update()
 	{
 		global $db;
+		$link = $db->link;
 
 		$setstrings = array();
 		foreach ($this->propertygroups as $group)
@@ -889,7 +890,7 @@ class PropertyPage
 				SET
 					" . implode(",\n", $setstrings) . "
 				WHERE
-					" . $this->keycol . "='" . $db->escape($this->keyval) . "'
+					" . $this->keycol . "='" . mysqli_real_escape_string($link, $this->keyval) . "'
 			");
 	}
 }
@@ -1022,17 +1023,17 @@ $selGame = valid_request($_GET['game'], 0);
 	<td><?php
 
 // General Settings
-$admintasks['options'] = new AdminTask('HLstatsX:CE Settings', 80);
+$admintasks['options'] = new AdminTask('HLstatsX:CE Settings', 100);
 $admintasks['adminusers'] = new AdminTask('Admin Users', 100);
-$admintasks['games'] = new AdminTask('Games', 80);
+$admintasks['games'] = new AdminTask('Games', 100);
 $admintasks['hostgroups'] = new AdminTask('Host Groups', 100);
 $admintasks['clantags'] = new AdminTask('Clan Tag Patterns', 80);
-$admintasks['voicecomm'] = new AdminTask('Manage Voice Servers', 80);
+$admintasks['voicecomm'] = new AdminTask('Manage Voice Servers', 100);
 
 // Game Settings
-$admintasks['newserver'] = new AdminTask('Add Server', 80, 'game');
-$admintasks['servers'] = new AdminTask('Edit Servers', 80, 'game');
-$admintasks['serversettings'] = new AdminTask('&nbsp;&nbsp;&nbsp;&gt;&gt;&nbsp;Server Details', 80, 'game');
+$admintasks['newserver'] = new AdminTask('Add Server', 100, 'game');
+$admintasks['servers'] = new AdminTask('Edit Servers', 100, 'game');
+$admintasks['serversettings'] = new AdminTask('&nbsp;&nbsp;&nbsp;&gt;&gt;&nbsp;Server Details', 100, 'game');
 $admintasks['actions'] = new AdminTask('Actions', 80, 'game');
 $admintasks['teams'] = new AdminTask('Teams', 80, 'game');
 $admintasks['roles'] = new AdminTask('Roles', 80, 'game');
@@ -1045,12 +1046,12 @@ $admintasks['ranks'] = new AdminTask('Ranks (triggered by Kills)', 80, 'game');
 $admintasks['ribbons'] = new AdminTask('Ribbons (triggered by Awards)', 80, 'game');
 
 // Tools
-$admintasks['tools_perlcontrol'] = new AdminTask('HLstatsX: CE Daemon Control', 80, 'tool', 'Reload or stop your HLX: CE Daemons');
+$admintasks['tools_perlcontrol'] = new AdminTask('HLstatsX: CE Daemon Control', 100, 'tool', 'Reload or stop your HLX: CE Daemons');
 $admintasks['tools_editdetails'] = new AdminTask('Edit Player or Clan Details', 80, 'tool', 'Edit a player or clan\'s profile information.');
 $admintasks['tools_adminevents'] = new AdminTask('Admin-Event History', 80, 'tool', 'View event history of logged Rcon commands and Admin Mod messages.');
 $admintasks['tools_ipstats'] = new AdminTask('Host Statistics', 80, 'tool', 'See which ISPs your players are using.');
 $admintasks['tools_optimize'] = new AdminTask('Optimize Database', 100, 'tool', 'This operation tells the MySQL server to clean up the database tables, optimizing them for better performance. It is recommended that you run this at least once a month.');
-//$admintasks['tools_synchronize'] = new AdminTask('Synchronize Statistics', 80, 'tool', 'Sychronize all players with the offical global ELstatsNEO banlist with catched VAC cheaters.');
+//$admintasks['tools_synchronize'] = new AdminTask('Synchronize Statistics', 100, 'tool', 'Sychronize all players with the offical global ELstatsNEO banlist with catched VAC cheaters.');
 $admintasks['tools_resetdbcollations'] = new AdminTask('Reset All DB Collations to UTF8', 100, 'tool', 'Reset DB Collations to UTF-8 if you receive collation errors after an upgrade from another HLstats(X)-based system.');
 
 // Sub-Tools
@@ -1062,7 +1063,7 @@ $admintasks['tools_reset'] = new AdminTask('Full or Partial Reset', 100, 'tool',
 $admintasks['tools_reset_2'] = new AdminTask('Clean up Statistics', 100, 'tool', 'Delete all inactive players, clans and corresponding events from the database.', 'reset');
 
 // Game Settings Tools
-$admintasks['tools_settings_copy'] = new AdminTask('Duplicate Game settings', 80, 'tool', 'Duplicate a whole game settings tree to split servers of same gametype', 'settingstool');
+$admintasks['tools_settings_copy'] = new AdminTask('Duplicate Game settings', 100, 'tool', 'Duplicate a whole game settings tree to split servers of same gametype', 'settingstool');
 
 
 // Show Tool
