@@ -2,7 +2,7 @@
  /*
      pData - Simplifying data population for pChart
      Copyright (C) 2008 Jean-Damien POGOLOTTI
-     Version  1.13 last updated on 08/17/08
+     Version  1.14 last updated on 08/18/22
 
      http://pchart.sourceforge.net
 
@@ -50,7 +50,7 @@
    var $Data;
    var $DataDescription;
 
-   function pData()
+   function __construct()
     {
      $this->Data                           = array();
      $this->DataDescription                = array();
