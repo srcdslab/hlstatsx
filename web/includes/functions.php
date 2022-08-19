@@ -94,10 +94,7 @@ function valid_request($str, $numeric = false)
 	$str = preg_replace($search_pattern, $replace_pattern, $str);
 	if ( $numeric == false )
 	{
-		if ( get_magic_quotes_gpc() )
-			return $str = htmlspecialchars(stripslashes($str), ENT_QUOTES);
-		else
-			return $str = htmlspecialchars($str, ENT_QUOTES);
+		return $str = htmlspecialchars($str, ENT_QUOTES);
 	}
 	else
 	{
@@ -465,7 +462,7 @@ function getImage($filename)
 
 function mystripslashes($text)
 {
-	return get_magic_quotes_gpc() ? stripslashes($text) : $text;
+	return stripslashes($text);
 }
 
 function getRealGame($game)

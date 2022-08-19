@@ -423,7 +423,7 @@ if ($player_id > 0) {
     
 	if(function_exists('imagettftext'))
 	{
-		$font = IMAGE_PATH.'/sig/font/DejaVuSans.ttf';
+		$font = realpath(IMAGE_PATH.'/sig/font/DejaVuSans.ttf');
 		imagettftext($image, 10, 0, 30, 15, $caption_color, $font, $pl_name);
 	}
 	else
