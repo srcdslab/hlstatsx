@@ -139,7 +139,18 @@ function error($message, $exit = true)
 <td class="errorhead">ERROR</td>
 </tr>
 <tr>
-<td class="errortext"><?php echo $message; ?></td>
+<td class="errortext">
+	<?php
+		if (isset($_SESSION['loggedin']))
+		{
+			echo $message;
+		}
+		else
+		{
+			echo 'Oops, there is a problem (╯°□°）╯︵ ┻━┻ <br />If you see this message, please report it to Administrators.';
+		}
+	?>
+	</td>
 </tr>
 </table>
 <?php if ($exit)
